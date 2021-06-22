@@ -34,8 +34,11 @@ class UserDirectory extends Component {
     };
 
     sorting = (event) => {
-
-    }
+        this.setState({ searchArea: event.target.value}, () =>{
+            this.sortingEmps();
+            this.setState({sorted:true});
+        });
+    };
 
 
 }
