@@ -68,3 +68,5 @@ class UserDirectory extends Component {
 
 
 }
+
+export default UserDirectory;
