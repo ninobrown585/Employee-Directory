@@ -40,5 +40,31 @@ class UserDirectory extends Component {
         });
     };
 
+    render = () =>{
+        return(
+            <div className="header-background">
+                <div>
+                    <h3>Employee Directory</h3>
+                    <h2>Enter an employee name into the search area that your seeking.</h2>
+                    <SearchArea name="searchArea" sorting={this.sorting} label="SearchArea" />
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Email</th>
+                            <th>Name</th>
+                            <th>D.O.B.</th>
+                            <th>Phone Number</th>
+                            <th>Address</th>
+                        </tr>
+                    </thead>
+                </table>
+
+
+            </div>
+        )
+    }
+
 
 }
