@@ -8,22 +8,22 @@ class UserDirectory extends Component {
         currentemployees: [],
         searchArea: "",
         sortEmployees: [],
-        sorted: false
+        sorted: false,
     };
 
     //receive data and renders once or more than once
     componentDidMount = () => {
-        API.getUsers().then((answer) => {
+        API.getUsers().then((results) => {
             this.setState({
-                currentemployees: answer.data.answer,
+                currentemployees: results.data.results,
             });
         });
     };
 
     //Sort through employees and render to screen matched search
     sortingEmps = () => {
-        let {CurrentEmployees, searchArea} = this.state;
-        let sortEmployees = CurrentEmployees.filter((sorted)=>{
+        let {currentemployees, searchArea} = this.state;
+        let sortEmployees = currentemployees.filter((sorted)=>{
             return(
                 sorted.name.firstName.toLowerCase().includes(searchArea.toLowerCase()) 
                 || sorted.name.lastName.toLowerCase().includes(searchArea.toLowerCase())
@@ -53,31 +53,31 @@ class UserDirectory extends Component {
                     <thead>
                         <tr>
                             <th>Image</th>
-                            <th>Email</th>
                             <th>Name</th>
-                            <th>D.O.B.</th>
                             <th>Phone Number</th>
                             <th>Address</th>
+                            <th>Email</th>
+                            {/* <th>D.O.B.</th> */}
                         </tr>
                     </thead>
                 <tbody>
                     {
                         //state before user enters a search
-                        !this.state.sorted ? this.state.currentemployees.map((employee) =>{
+                        !this.state.sorted ? this.state.currentemployees.map((employee) => (
                             <CurrentEmployees key= {employee.id.value} firstName={employee.name.first}
 
                                 lastName={employee.name.last} phone={employee.phone} email={employee.email}
 
-                            icon={employee.picture.medium} dob={employee.dob.date}
+                            icon={employee.picture.medium} //dob={employee.dob.date}
 
                                 address={employee.location.street.number + " "+employee.location.street.name+ " ,"+
                                 employee.location.city+ " ," + employee.location.state+ " "+ employee.location.postcode} />
 
-                        })
+                        ))
                          : //Sorts when user enters search
                          this.state.sortEmployees.map((employee) =>{
                             <CurrentEmployees key={employee.id.value} firstName={employee.name.first} lastName={employee.name.last}
-                            phone={employee.phone} email={employee.email} icon={employee.picture.medium} dob={employee.dob.date}
+                            phone={employee.phone} email={employee.email} icon={employee.picture.medium} //dob={employee.dob.date}
                             address={employee.location.street.number + " "+ employee.location.street.name} />
                          })  
                     }

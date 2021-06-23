@@ -9,9 +9,9 @@ const CurrentEmployees = (props) => {
             <td>
                 {props.firstName} {props.lastName}
             </td>
-            <td>
+            {/* <td>
                 {props.dob}
-            </td>
+            </td> */}
             <td>
                 {props.phone}
             </td>
