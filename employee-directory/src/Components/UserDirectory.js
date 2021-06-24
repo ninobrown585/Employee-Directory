@@ -24,7 +24,7 @@ class UserDirectory extends Component {
     handleChange = (event) => {
         let name = event.target.value;
         let { currentemployees, searchArea } = this.state;
-        let sortEmployees = currentemployees.sort((sorted) => {
+        let sortEmployees = currentemployees.filter((sorted) => {
             return (
                 sorted.name.first.toLowerCase().includes(name.toLowerCase())
                 || sorted.name.last.toLowerCase().includes(name.toLowerCase())
@@ -44,7 +44,7 @@ class UserDirectory extends Component {
 
     sorting = (event) => {
         this.setState({ searchArea: event.target.value }, () => {
-            this.sortingEmps();
+            this.handleChange();
             this.setState({ sorted: true });
         });
     };
