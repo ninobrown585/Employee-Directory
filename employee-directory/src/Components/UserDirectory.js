@@ -16,31 +16,31 @@ class UserDirectory extends Component {
         API.getUsers().then((results) => {
             this.setState({
                 currentemployees: results.data.results,
+                sortEmployees: results.data.results,
             });
         });
     };
 
     handleChange = (event) => {
-
-        let name = event.target.value
-
-        this.setState({ searchArea: name })
-
+        let name = event.target.value;
+        let { currentemployees, searchArea } = this.state;
+        let sortEmployees = currentemployees.sort((sorted) => {
+            return (
+                sorted.name.first.toLowerCase().includes(name.toLowerCase())
+                || sorted.name.last.toLowerCase().includes(name.toLowerCase())
+                || sorted.email.toLowerCase().includes(name.toLowerCase())
+            );
+        });
+        this.setState({ searchArea: name, sortEmployees })
         console.log(name)
     }
 
     //Sort through employees and render to screen matched search
-    sortingEmps = () => {
-        let { currentemployees, searchArea } = this.state;
-        let sortEmployees = currentemployees.filter((sorted) => {
-            return (
-                sorted.name.firstName.toLowerCase().includes(searchArea.toLowerCase())
-                || sorted.name.lastName.toLowerCase().includes(searchArea.toLowerCase())
-                || sorted.email.toLowerCase().includes(searchArea.toLowerCase())
-            );
-        });
-        this.setState({ sortEmployees });
-    };
+    // sortingEmps = () => {
+        
+     
+    //     this.setState({ sortEmployees });
+    // };
 
     sorting = (event) => {
         this.setState({ searchArea: event.target.value }, () => {
@@ -72,7 +72,7 @@ class UserDirectory extends Component {
                     <tbody>
                         {
                             //state before user enters a search
-                            !this.state.sorted ? this.state.currentemployees.map((employee) => (
+                            this.state.sortEmployees.map((employee) => (
                                 <CurrentEmployees key={employee.id.value} firstName={employee.name.first}
 
                                     lastName={employee.name.last} phone={employee.phone} email={employee.email}
@@ -83,12 +83,6 @@ class UserDirectory extends Component {
                                         employee.location.city + " ," + employee.location.state + " " + employee.location.postcode} />
 
                             ))
-                                : //Sorts when user enters search
-                                this.state.sortEmployees.map((employee) => {
-                                    <CurrentEmployees key={employee.id.value} firstName={employee.name.first} lastName={employee.name.last}
-                                        phone={employee.phone} email={employee.email} icon={employee.picture.medium} //dob={employee.dob.date}
-                                        address={employee.location.street.number + " " + employee.location.street.name} />
-                                })
                         }
                     </tbody>
                 </table>
