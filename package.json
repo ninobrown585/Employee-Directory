@@ -22,7 +22,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
-  "homepage": "https://ninobrown585.io/employee-directory",
+  "homepage": "https://ninobrown585.github.io/Employee-Directory",
   "eslintConfig": {
     "extends": [
       "react-app",
